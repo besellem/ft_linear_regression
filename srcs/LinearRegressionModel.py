@@ -1,5 +1,3 @@
-from locale import normalize
-from typing import IO
 import matplotlib.pyplot as plt
 import pandas as pd
 
