@@ -44,7 +44,7 @@ class LinearRegressionModel:
 	# cost function (or MSE)
 	def cost(self):
 		normalized_x = self.__normalize_x(self.x)
-		return sum([(self.estimate(x) - y) ** 2 for x, y in zip(normalized_x, self.y)]) / (len(self.x))
+		return sum([(self.estimate(x) - y) ** 2 for x, y in zip(normalized_x, self.y)]) / (2 * len(self.x))
 
 	def save(self, th0=None, th1=None):
 		if (th0 and not th1) or (not th0 and th1):
