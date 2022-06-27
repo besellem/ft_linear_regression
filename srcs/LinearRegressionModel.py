@@ -4,6 +4,7 @@ import pandas as pd
 
 THETAS_FILE = ".trained"
 
+
 class LinearRegressionModel:
 
 	def __init__(self, csv_data: str):

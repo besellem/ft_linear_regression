@@ -11,7 +11,7 @@ if __name__ == '__main__':
 		exit(1)
 	
 	try:
-		if (len(sys.argv) == 2):
+		if len(sys.argv) == 2:
 			lr = LinearRegressionModel(sys.argv[1])
 		else:
 			lr = LinearRegressionModel('./data/data.csv')

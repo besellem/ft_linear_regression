@@ -11,16 +11,16 @@ if __name__ == '__main__':
 		exit(1)
 	
 	try:
-		if (len(sys.argv) == 2):
+		if len(sys.argv) == 2:
 			lr = LinearRegressionModel(sys.argv[1])
 		else:
 			lr = LinearRegressionModel('./data/data.csv')
 	except IOError as e:
 		print(e, file=sys.stderr)
 		exit(1)
-	
+
+	# get data from the user
 	s = float(input(f'Enter ({lr.headers[0]}) to predict ({lr.headers[1]}): '))
 
-	estimated = lr.predict(s)
-
-	print('Prediction:', estimated)
+	# use trained model to predict the new data
+	print('Prediction:', lr.predict(s))
