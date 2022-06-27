@@ -1,7 +1,8 @@
 # FT_LINEAR_REGRESSION
 The goal of this project is to implement a simple linear regression model
 
-![linear regression model](./screenshot.png "example of data and the linear regression applied to it")
+![](./screenshot.png)
+*Example of data and the linear regression applied to it*
 
 
 # Requirements
