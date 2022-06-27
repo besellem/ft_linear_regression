@@ -25,20 +25,26 @@ class LinearRegressionModel:
 		line_x = [self.x.min(), self.x.max()]
 		line_y = [self.estimate(x) for x in [0, 1]]
 		
-		plt.plot(line_x, line_y, color='black', alpha=.7)
-		plt.scatter(self.x, self.y, color='green', alpha=.5)
+		plt.scatter(self.x, self.y, color='green', alpha=.5, label="data")
+		plt.plot(line_x, line_y, color='black', alpha=.7, label="model")
 		plt.xlabel(self.headers[0])
 		plt.ylabel(self.headers[1])
 		plt.title(self.__module__)
+		plt.legend()
 		plt.grid()
 		plt.show()
 
-	def estimate(self, x):
-		return (self.th1 * x) + self.th0
-	
 	def predict(self, x):
 		val = self.__normalize_x(x)
 		return self.estimate(val)
+
+	def estimate(self, x):
+		return (self.th1 * x) + self.th0
+
+	# cost function (or MSE)
+	def cost(self):
+		normalized_x = self.__normalize_x(self.x)
+		return sum([(self.estimate(x) - y) ** 2 for x, y in zip(normalized_x, self.y)]) / (len(self.x))
 
 	def save(self, th0=None, th1=None):
 		if (th0 and not th1) or (not th0 and th1):

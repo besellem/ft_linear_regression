@@ -21,6 +21,9 @@ if __name__ == '__main__':
 
 	# get data from the user
 	s = float(input(f'Enter ({lr.headers[0]}) to predict ({lr.headers[1]}): '))
-
+	
 	# use trained model to predict the new data
-	print('Prediction:', lr.predict(s))
+	print(f'Prediction: {lr.predict(s)} ({lr.headers[1]}) for {s} ({lr.headers[0]})')
+	
+	# calculate cost function (or MSE)
+	print(f'MSE: [{lr.cost()}]')
