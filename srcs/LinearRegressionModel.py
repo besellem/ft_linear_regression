@@ -1,3 +1,4 @@
+from typing import overload
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -16,12 +17,29 @@ class LinearRegressionModel:
 		self.headers = file.columns
 		self.x, self.y = data[:, 0], data[:, 1]
 		self.th0, self.th1 = self.__parse_thetas()
+		self.cost_lst = []
 
 	def train(self, epoch=100, alpha=1):
+		self.cost_lst = []
+		self.th0, self.th1 = 0, 0
+
 		for _ in range(epoch):
 			self.th0, self.th1 = self.__process_thetas(alpha)
+			self.cost_lst.append(self.cost())
 
-	def show(self):
+	def predict(self, x):
+		val = self.__normalize_x(x)
+		return self.estimate(val)
+
+	def estimate(self, x):
+		return self.th0 + self.th1 * x
+
+	# cost function (or MSE)
+	def cost(self):
+		normalized_x = self.__normalize_x(self.x)
+		return sum([(self.estimate(x) - y) ** 2 for x, y in zip(normalized_x, self.y)]) / (2 * len(self.x))
+
+	def plot(self):
 		line_x = [self.x.min(), self.x.max()]
 		line_y = [self.estimate(x) for x in [0, 1]]
 		
@@ -34,17 +52,16 @@ class LinearRegressionModel:
 		plt.grid()
 		plt.show()
 
-	def predict(self, x):
-		val = self.__normalize_x(x)
-		return self.estimate(val)
+	def plot_cost(self):
+		x = range(len(self.cost_lst))
+		y = self.cost_lst
 
-	def estimate(self, x):
-		return (self.th1 * x) + self.th0
-
-	# cost function (or MSE)
-	def cost(self):
-		normalized_x = self.__normalize_x(self.x)
-		return sum([(self.estimate(x) - y) ** 2 for x, y in zip(normalized_x, self.y)]) / (2 * len(self.x))
+		plt.plot(x, y, label="cost")
+		plt.xlabel('Epoch')
+		plt.ylabel('Cost')
+		plt.title('Cost Function (MSE)')
+		plt.legend()
+		plt.show()
 
 	def save(self, th0=None, th1=None):
 		if (th0 and not th1) or (not th0 and th1):
@@ -72,7 +89,8 @@ class LinearRegressionModel:
 
 		return theta0, theta1
 
-	def __parse_thetas(self):
+	@staticmethod
+	def __parse_thetas():
 		try:
 			f = open(THETAS_FILE, 'r')
 			raw = f.read()

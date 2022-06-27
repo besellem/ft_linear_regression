@@ -22,14 +22,8 @@ if __name__ == '__main__':
 	# train data
 	lr.train(epoch=1000)
 	
-	# print theta0 & theta1
-	print('[th0, th1]:', [lr.th0, lr.th1])
-	
 	# calculate cost function (or MSE)
 	print(f'MSE: [{lr.cost()}]')
 	
-	# save data into a file to predict test data afterward
-	lr.save()
-	
-	# plot data & model
-	lr.plot()
+	# visualize cost function
+	lr.plot_cost()
