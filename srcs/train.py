@@ -14,7 +14,7 @@ if __name__ == '__main__':
 		if (len(sys.argv) == 2):
 			lr = LinearRegressionModel(sys.argv[1])
 		else:
-			lr = LinearRegressionModel()
+			lr = LinearRegressionModel('./data/data.csv')
 	except IOError as e:
 		print(e, file=sys.stderr)
 		exit(1)
